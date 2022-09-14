@@ -7,12 +7,22 @@ Por el momento el deploy fue en heroku, para realizar el testeo y consumirla des
 
 
 
-# Puntos de acceso
+# Puntos de acceso al CRUD
 
-GET /api/tasks 
-GET /api/products
-GET /api/users
-GET /api/points
+Create Read Update and Delete /api/tasks 
+
+Create Read Update and Delete /api/products
+
+Create Read Update and Delete /api/users
+
+Create Read Update and Delete /api/points
 
 url: https://smiley-appi.herokuapp.com
+
+ejemplo: https://smiley-appi.herokuapp.com/api/tasks
+
+POST /api/tasks 
+POST /api/products
+POST /api/users
+POST /api/points
 
