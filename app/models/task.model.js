@@ -8,6 +8,7 @@ module.exports = mongoose => {
             user: String, // name to be assigned to task
             description: String,
             points: Number, // story points
+            done: Boolean, // done ? task
         },
         { timestamps: true }
     );
