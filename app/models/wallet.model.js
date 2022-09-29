@@ -1,32 +1,24 @@
-module.exports = mongoose => {
-    var schema = mongoose.Schema(
-        {
-            
-            name: String, 
+// wallets.js
+const mongoose =require('mongoose');
 
-            email: String,
-            phone: String,
+const walletSchema = new mongoose.Schema(
+  {
+    username: {
+        type: String,
+        required: true,
+        trim: true,
+        immutable: true,
+        unique: true
+    },
+    balance: {
+        type: mongoose.Decimal128,
+        required: true,
+        default: 0.00
+    },
 
-            type: String, // Uteam, collaborator, admin
+  },
+  { timestamps: true }
+);
 
-            due: Date, // when it's due
-            description: String,
-            points: Number, //  points
-            
-           // user: String, // name to be assigned to task
-           //description: String,
-
-            //points: Number, //  points
-        },
-        { timestamps: true }
-    );
-
-    schema.method("toJSON", function () {
-        const { __v, _id, ...object } = this.toObject();
-        object.id = _id;
-        return object;
-    });
-
-    const Point = mongoose.model("point", schema);
-    return Point;
-};
+const Wallets = mongoose.model('Wallets', walletSchema);
+module.exports = Wallets;

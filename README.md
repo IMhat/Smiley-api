@@ -54,12 +54,29 @@ Por el momento el deploy fue en heroku, para realizar el testeo y consumirla des
 
 # Billetera de puntos
 
-/api/points Trae todos los puntos de todos los usuarios
+{POST} /api/wallet/ 
+{
+    "username"
+}
+//crea una wallet con ese nombre de usuario
 
-/api/points/id  busca puntos por id
+{GET} /api/wallet/ 
+//trae todas las wallets
 
-/api/points?email=email   Trae todos los puntos correspondientes al email 
+# Transacciones 
 
+{POST} /api/transaction/transfer
+{
+  "fromUsername": "remitente",
+  "toUsername": "usuario a transferir",
+  "amount": monto,
+  "summary": "descripcion"
+}
+
+//realiza una transaccion
+
+{GET} /api/transaction/
+//trae todas las transacciones
 
 
 url: https://smiley-appi.herokuapp.com

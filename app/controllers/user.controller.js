@@ -1,5 +1,6 @@
 const db = require("../models");
 const User = db.users;
+const Wallet = db.points;
 
 // Create and Save a new User
 exports.create = (req, res) => {
@@ -9,24 +10,43 @@ exports.create = (req, res) => {
         return;
     }
 
-    // Create a user
-    const user = new User({
+    
 
-        name: req.body.name,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        phone: req.body.phone,
-        type: req.body.type ? req.body.type : "collaborator", // validate later
-        userImage: req.body.userImage,
-        due: req.body.due, // when it's due
-        points: req.body.points ? req.body.points : 1,
+var wallet = new Wallet(req.body.wallet)
+var user = new User();
+
+
+user.name = req.body.name,
+user.lastName= req.body.lastName,
+user.email= req.body.email,
+user.phone = req.body.phone,
+user.type= req.body.type ? req.body.type : "collaborator", // validate later
+user.userImage= req.body.userImage,
+user.due= req.body.due, // when it's due
+// because Wallet too is a Schema just like User
+user.wallet = wallet.actualBalance;
+
+    // Create a user
+    // const user = new User({
+
+    //     name: req.body.name,
+    //     lastName: req.body.lastName,
+    //     email: req.body.email,
+    //     phone: req.body.phone,
+    //     type: req.body.type ? req.body.type : "collaborator", // validate later
+    //     userImage: req.body.userImage,
+    //     due: req.body.due, // when it's due
+
+        
+       
+        
 
        
 
-        //description: req.body.description,
-       // user: req.body.user ? req.body.user : "root",
-        //points: req.body.points ? req.body.points : 1,
-    });
+    //     //description: req.body.description,
+    //    // user: req.body.user ? req.body.user : "root",
+    //     //points: req.body.points ? req.body.points : 1,
+    // });
 
     // Save User in the database
     user

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-smiley-deploy
+  labels:
+    name: api-smiley-deploy
+    app: api-smiley-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: api-smiley-pod
+      app: api-smiley-app
+  template:
+    metadata:
+      name: api-smiley-pod
+      labels:
+        name: api-smiley-pod
+        app: api-smiley-app
+    spec:
+      containers:
+        - name: api-smiley-container
+          image: "503235614140.dkr.ecr.us-east-1.amazonaws.com/api-smiley:latest"
+          imagePullPolicy: Always
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "1"
+            requests:
+              memory: 128Mi
+              cpu: "0.2"
+          livenessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 5

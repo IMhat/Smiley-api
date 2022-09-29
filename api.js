@@ -1,7 +1,8 @@
 const express = require("express"); // backend
 const cors = require("cors"); // middleware
 const app = express(); // create express
-const product = express(); // create express
+
+
 
 const db = require("./app/models"); // connect
 
@@ -11,12 +12,14 @@ db.mongoose
         useUnifiedTopology: true
     })
     .then(() => {
-        console.log("Successfully connected to the kanban-board database");
+        console.log("Successfully connected to the Smiley database");
     })
     .catch(err => {
-        console.log("Cannot connect to the kanban-board database. Quitting ...", err);
+        console.log("Cannot connect to the Smiley database. Quitting ...", err);
         process.exit();
     });
+
+
 // listen at all
 app.use(cors()); 
 
@@ -26,10 +29,16 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
+app.get('/healthcheck', (req, res) => {
+    res.send({status: 'Working'})
+});
+
 require("./app/routes/task.routes")(app);
 require('./app/routes/product.routes')(app);
 require('./app/routes/user.routes')(app);
+//Wallet
 require('./app/routes/wallet.routes')(app);
+require('./app/routes/transaction.routes')(app);
 
 // const productRoutes = require('./app/routes/product.routes')
 
@@ -37,7 +46,8 @@ require('./app/routes/wallet.routes')(app);
 
 
 // set port, listen for requests
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });
+
