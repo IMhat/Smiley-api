@@ -6,6 +6,7 @@ module.exports = mongoose => {
             due: Date, // when it's due
             priority: String, // low, medium, high, for example
             user: String, // name to be assigned to task
+            createdBy: String,
             description: String,
             points: Number, // story points
             done: Boolean, // done ? task
