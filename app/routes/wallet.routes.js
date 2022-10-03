@@ -9,6 +9,15 @@ module.exports = app => {
     // Retrieve all wallet
     router.get('/', wallet.findAll);
 
+    // Retrieve wallet of user
+    // router.get("/:username", wallet.findUserWallet);
+
+
+    // Retrieve wallet of user
+
+    ///api/wallet/search?searchQuery=${ username }
+    router.get("/search", wallet.getUserBySearch);
+
 
 
 

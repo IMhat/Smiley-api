@@ -77,7 +77,25 @@ const findAll = (req, res) => {
 };
 
 
+const getTransactionBySearch = async (req, res) => {
+    // tried req.query and req.query.search
+const { searchQuery } = req.query;
+try {
+// make the search query not case sensitive
+const user = new RegExp(searchQuery, `i`);
+
+//find the user's name using the name field
+const userFound = await Transactions.find({trnxSummary: user})
+
+res.json({data: userFound})
+
+} catch (error) {
+res.status(404).json({message: error.message})
+}
+}
 
 
-module.exports = { transfer, findAll };
+
+
+module.exports = { transfer, findAll, getTransactionBySearch };
 

@@ -9,6 +9,9 @@ module.exports = app => {
     // Retrieve all tasks
     router.get("/", tasks.findAll);
 
+    // Retrieve all tasks backlog
+    router.get("/todo", tasks.findAllBacklog);
+
     // Retrieve all tasks to do
     router.get("/todo", tasks.findAllToDo);
 
@@ -18,11 +21,20 @@ module.exports = app => {
     // Retrieve all tasks done
     router.get("/done", tasks.findAllDone);
 
+    // Retrieve all tasks Approved
+    router.get("/done", tasks.findAllApproved);
+    
+
     // Retrieve a single task with id
     router.get("/:id", tasks.findOne);
 
     // Update a task with id
     router.put("/:id", tasks.update);
+
+
+    // Update a task with id
+    router.put("/:id/completeByAdmin", tasks.completeByAdmin);
+
 
     // Delete a task with id
     router.delete("/:id", tasks.delete);

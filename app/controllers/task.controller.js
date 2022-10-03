@@ -161,7 +161,7 @@ exports.deleteAll = (req, res) => {
 
 // find all to do
 exports.findAllToDo = (req, res) => {
-  Task.find({ type: 'to do' })
+  Task.find({ type: 'ToDo' })
     .then(data => {
       res.send(data);
     })
@@ -175,7 +175,7 @@ exports.findAllToDo = (req, res) => {
 
 // find all in progress
 exports.findAllInProgress = (req, res) => {
-  Task.find({ type: 'in progress' })
+  Task.find({ type: 'inprogress' })
     .then(data => {
       res.send(data);
     })
@@ -190,6 +190,32 @@ exports.findAllInProgress = (req, res) => {
 // find all done
 exports.findAllDone = (req, res) => {
   Task.find({ type: 'done' })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "ERROR retrieving tasks."
+      });
+    });
+};
+
+exports.findAllBacklog = (req, res) => {
+  Task.find({ type: 'backlog' })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "ERROR retrieving tasks."
+      });
+    });
+};
+
+exports.findAllApproved = (req, res) => {
+  Task.find({ type: 'approved' })
     .then(data => {
       res.send(data);
     })

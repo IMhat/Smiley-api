@@ -13,6 +13,11 @@ module.exports = app => {
     
     router.get('/', transaction.findAll);
 
+    //find transaction user
+    ///api/transaction/search?searchQuery= ${username}
+
+    router.get("/search", transaction.getTransactionBySearch);
+
 
 
     // host at '/api/transaction'
