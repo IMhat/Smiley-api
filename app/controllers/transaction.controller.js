@@ -24,10 +24,12 @@ const transfer = async (req, res) => {
       const transferResult = await Promise.all([
         debitAccount(
           {amount, username:fromUsername, purpose:"transfer", reference, summary,
-          trnxSummary: `TRFR TO: ${toUsername}. TRNX REF:${reference} `, session}),
+          trnxSummary: `TRFR TO: ${toUsername}`, session}),
         creditAccount(
           {amount, username:toUsername, purpose:"transfer", reference, summary,
-          trnxSummary:`TRFR FROM: ${fromUsername}. TRNX REF:${reference} `, session})
+          trnxSummary:`TRFR FROM: ${fromUsername}`, session})
+          
+          //. TRNX REF:${reference}
       ]);
 
       const failedTxns = transferResult.filter((result) => result.status !== true);
