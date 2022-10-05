@@ -28,7 +28,7 @@ const transfer = async (req, res) => {
         creditAccount(
           {amount, username:toUsername, purpose:"transfer", reference, summary,
           trnxSummary:`TRFR FROM: ${fromUsername}`, session})
-          
+
           //. TRNX REF:${reference}
       ]);
 
@@ -79,21 +79,42 @@ const findAll = (req, res) => {
 };
 
 
+// const getTransactionBySearch = async (req, res) => {
+//     // tried req.query and req.query.search
+// const { searchQuery } = req.query;
+// try {
+// // make the search query not case sensitive
+// const user = new RegExp(searchQuery, `i`);
+
+// //find the user's name using the name field
+// const userFound = await Transactions.find({trnxSummary: user})
+
+// res.json({data: userFound})
+
+// } catch (error) {
+// res.status(404).json({message: error.message})
+// }
+// }
 const getTransactionBySearch = async (req, res) => {
     // tried req.query and req.query.search
 const { searchQuery } = req.query;
-try {
+
 // make the search query not case sensitive
 const user = new RegExp(searchQuery, `i`);
 
 //find the user's name using the name field
-const userFound = await Transactions.find({trnxSummary: user})
+await Transactions.find({trnxSummary: user})
+.then(data => {
+  res.send(data);
+})
+.catch(err => {
+res.status(500).send({
+    message:
+        err.message || `ERROR finding transaction ${user}`
+    });
+});
 
-res.json({data: userFound})
 
-} catch (error) {
-res.status(404).json({message: error.message})
-}
 }
 
 

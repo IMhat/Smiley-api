@@ -68,59 +68,81 @@ const findAll = (req, res) => {
 // }
 
 
-const findUserWallet = (req, res) => {
+// const findUserWallet = (req, res) => {
 
-    const username = req.params.username;
+//     const username = req.params.username;
 
-    Wallets.find({ username: `${username}` })
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "ERROR retrieving tasks."
-        });
-      });
-  };
+//     Wallets.find({ username: `${username}` })
+//       .then(data => {
+//         res.send(data);
+//       })
+//       .catch(err => {
+//         res.status(500).send({
+//           message:
+//             err.message || "ERROR retrieving tasks."
+//         });
+//       });
+//   };
 
 
-  const findOne = (req, res) => {
-    const username = req.query;
+  // const findOne = (req, res) => {
+  //   const username = req.query;
   
-    Wallets.find({ username: `${username}` })
-      .then(data => {
-        if (!data)
-          res.status(404).send({ message: "No Task with id " + username });
-        else res.send(data);
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .send({ message: "ERROR creating Task with id=" + username });
-      });
-  };
+  //   Wallets.find({ username: `${username}` })
+  //     .then(data => {
+  //       if (!data)
+  //         res.status(404).send({ message: "No Task with id " + username });
+  //       else res.send(data);
+  //     })
+  //     .catch(err => {
+  //       res
+  //         .status(500)
+  //         .send({ message: "ERROR creating Task with id=" + username });
+  //     });
+  // };
 
 
 
 
 
+
+    // const getUserBySearch = async (req, res) => {
+    //     // tried req.query and req.query.search
+    // const { searchQuery } = req.query;
+    // try {
+    // // make the search query not case sensitive
+    // const user = new RegExp(searchQuery, `i`);
+
+    // //find the user's name using the name field
+    // const userFound = await Wallets.find({username: user})
+    // res.json({data: userFound})
+
+    // } catch (error) {
+    // res.status(404).json({message: error.message})
+    // }
+    // }
 
     const getUserBySearch = async (req, res) => {
         // tried req.query and req.query.search
     const { searchQuery } = req.query;
-    try {
+
     // make the search query not case sensitive
     const user = new RegExp(searchQuery, `i`);
 
     //find the user's name using the name field
-    const userFound = await Wallets.find({username: user})
-    res.json({data: userFound})
-
-    } catch (error) {
-    res.status(404).json({message: error.message})
+    await Wallets.find({username: user})
+      .then(data => {
+        res.send(data);
+     })
+     .catch(err => {
+      res.status(500).send({
+          message:
+              err.message || `ERROR finding wallet ${user}`
+          });
+      });
+      
     }
-    }
 
 
-module.exports = { createWallet, findAll, findUserWallet, findOne, getUserBySearch };
+
+module.exports = { createWallet, findAll,  getUserBySearch };
