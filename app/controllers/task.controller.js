@@ -173,6 +173,28 @@ exports.findAllToDo = (req, res) => {
     });
 };
 
+exports.findUserToDo = async (req, res) => {
+  // tried req.query and req.query.search
+const { searchQuery } = req.query;
+
+// make the search query not case sensitive
+const user = new RegExp(searchQuery, `i`);
+
+//find the user's name using the name field
+await Task.find({user: user, type: "ToDo"})
+.then(data => {
+  res.send(data);
+})
+.catch(err => {
+res.status(500).send({
+    message:
+        err.message || `ERROR finding wallet ${user}`
+    });
+});
+
+}
+
+
 // find all in progress
 exports.findAllInProgress = (req, res) => {
   Task.find({ type: 'inprogress' })
@@ -186,6 +208,27 @@ exports.findAllInProgress = (req, res) => {
       });
     });
 };
+
+exports.findUserInProgress = async (req, res) => {
+  // tried req.query and req.query.search
+const { searchQuery } = req.query;
+
+// make the search query not case sensitive
+const user = new RegExp(searchQuery, `i`);
+
+//find the user's name using the name field
+await Task.find({user: user, type: "inprogress"})
+.then(data => {
+  res.send(data);
+})
+.catch(err => {
+res.status(500).send({
+    message:
+        err.message || `ERROR finding wallet ${user}`
+    });
+});
+
+}
 
 // find all done
 exports.findAllDone = (req, res) => {
@@ -201,6 +244,27 @@ exports.findAllDone = (req, res) => {
     });
 };
 
+exports.findUserDone = async (req, res) => {
+  // tried req.query and req.query.search
+const { searchQuery } = req.query;
+
+// make the search query not case sensitive
+const user = new RegExp(searchQuery, `i`);
+
+//find the user's name using the name field
+await Task.find({user: user, type: "done"})
+.then(data => {
+  res.send(data);
+})
+.catch(err => {
+res.status(500).send({
+    message:
+        err.message || `ERROR finding wallet ${user}`
+    });
+});
+
+}
+
 exports.findAllBacklog = (req, res) => {
   Task.find({ type: 'backlog' })
     .then(data => {
@@ -214,6 +278,27 @@ exports.findAllBacklog = (req, res) => {
     });
 };
 
+exports.findUserBacklog = async (req, res) => {
+  // tried req.query and req.query.search
+const { searchQuery } = req.query;
+
+// make the search query not case sensitive
+const user = new RegExp(searchQuery, `i`);
+
+//find the user's name using the name field
+await Task.find({user: user, type: "backlog"})
+.then(data => {
+  res.send(data);
+})
+.catch(err => {
+res.status(500).send({
+    message:
+        err.message || `ERROR finding wallet ${user}`
+    });
+});
+
+}
+
 exports.findAllApproved = (req, res) => {
   Task.find({ type: 'approved' })
     .then(data => {
@@ -226,4 +311,27 @@ exports.findAllApproved = (req, res) => {
       });
     });
 };
+
+exports.findUserApproved = async (req, res) => {
+  // tried req.query and req.query.search
+const { searchQuery } = req.query;
+
+// make the search query not case sensitive
+const user = new RegExp(searchQuery, `i`);
+
+//find the user's name using the name field
+await Task.find({user: user, type: "approved"})
+.then(data => {
+  res.send(data);
+})
+.catch(err => {
+res.status(500).send({
+    message:
+        err.message || `ERROR finding wallet ${user}`
+    });
+});
+
+}
+
+
 // add methods to get priorities for each as well
