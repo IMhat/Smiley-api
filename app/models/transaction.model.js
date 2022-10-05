@@ -14,7 +14,7 @@ const transactionSchema = new mongoose.Schema(
       required: true
     },
     amount: {
-      type: mongoose.Decimal128,
+      type: Number,
       required: true,
       default: 0.00
     },
