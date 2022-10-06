@@ -7,6 +7,13 @@ module.exports = app => {
     // Create a new transaction
     
     router.post('/transfer', transaction.transfer);
+
+    router.post('/addTask', transaction.addTask);
+
+
+    //buy product
+
+    router.post('/buyProduct', transaction.buyProduct);
     
 
     // Retrieve all transaction
@@ -17,7 +24,6 @@ module.exports = app => {
     ///api/transaction/search?searchQuery= ${username}
 
     router.get("/search", transaction.getTransactionBySearch);
-
 
 
     // host at '/api/transaction'

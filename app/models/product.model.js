@@ -3,11 +3,11 @@ module.exports = mongoose => {
         {
             title: String, 
             type: String, // indumentaria, cursos, gaming
-            due: Date, // when it's due
+            due: String, // when it's due
             productImage: String, // low, medium, high, for example
            // user: String, // name to be assigned to task
             description: String,
-            points: Number, //  points
+            points: String, //  points
         },
         { timestamps: true }
     );
