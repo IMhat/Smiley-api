@@ -24,6 +24,7 @@ module.exports = app => {
     ///api/transaction/search?searchQuery= ${username}
 
     router.get("/search", transaction.getTransactionBySearch);
+    
 
     //----find all exchange transaction
     router.get("/exchange", transaction.findAllExchange);
@@ -31,6 +32,12 @@ module.exports = app => {
 
     //----find user exchange transaction
     router.get("/exchange/search", transaction.findUserExchange);
+
+    //----find all task transaction
+    router.get("/task", transaction.findAllTask);
+
+    //----find user task transaction
+    router.get("/task/search", transaction.findUserTask);
 
 
     // host at '/api/transaction'

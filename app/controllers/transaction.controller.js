@@ -235,6 +235,7 @@ const findAllExchange = (req, res) => {
   };
 
 
+
 const findUserExchange = async (req, res) => {
     // tried req.query and req.query.search
 const { searchQuery } = req.query;
@@ -257,10 +258,47 @@ res.status(500).send({
 
 }
 
+// find task approved transaction
+
+const findAllTask = (req, res) => {
+    Transactions.find({ purpose: 'transfer' })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "ERROR retrieving exchange transaction."
+        });
+      });
+  };
+
+
+const findUserTask = async (req, res) => {
+    // tried req.query and req.query.search
+const { searchQuery } = req.query;
+
+// make the search query not case sensitive
+const user = new RegExp(searchQuery, `i`);
+
+//find the user's name using the name field
+await Transactions.find({trnxSummary: user, purpose: 'transfer'})
+.then(data => {
+  res.send(data);
+})
+.catch(err => {
+res.status(500).send({
+    message:
+        err.message || `ERROR finding transaction ${user}`
+    });
+});
+
+}
+
   
 
 
 
 
-module.exports = { transfer, findAll, getTransactionBySearch, addTask, buyProduct, findAllExchange, findUserExchange };
+module.exports = { transfer, findAll, getTransactionBySearch, addTask, buyProduct, findAllExchange, findUserExchange, findUserTask, findAllTask };
 
