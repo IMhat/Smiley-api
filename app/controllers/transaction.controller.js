@@ -188,8 +188,8 @@ const buyProduct = async (req, res) => {
 
       const transferResult = await Promise.all([
         debitAccount(
-          {amount, username:fromUsername, purpose:"transfer", reference, summary,
-          trnxSummary: `TRFR TO: ${fromUsername}`, session}),
+          {amount, username:fromUsername, purpose:"exchange", reference, summary,
+          trnxSummary: `DEBIT FROM: ${fromUsername}`, session}),
           //. TRNX REF:${reference}
       ]);
 
@@ -208,7 +208,7 @@ const buyProduct = async (req, res) => {
 
       return res.status(201).json({
         status: true,
-        message: 'Transfer successful'
+        message: 'Exchange product successful'
     })
     } catch (err) {
         await session.abortTransaction();
@@ -221,8 +221,46 @@ const buyProduct = async (req, res) => {
     }
 }
 
+const findAllExchange = (req, res) => {
+    Transactions.find({ purpose: 'exchange' })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "ERROR retrieving exchange transaction."
+        });
+      });
+  };
+
+
+const findUserExchange = async (req, res) => {
+    // tried req.query and req.query.search
+const { searchQuery } = req.query;
+
+// make the search query not case sensitive
+const user = new RegExp(searchQuery, `i`);
+
+//find the user's name using the name field
+await Transactions.find({trnxSummary: user, purpose: 'exchange'})
+.then(data => {
+  res.send(data);
+})
+.catch(err => {
+res.status(500).send({
+    message:
+        err.message || `ERROR finding transaction ${user}`
+    });
+});
+
+
+}
+
+  
 
 
 
-module.exports = { transfer, findAll, getTransactionBySearch, addTask, buyProduct };
+
+module.exports = { transfer, findAll, getTransactionBySearch, addTask, buyProduct, findAllExchange, findUserExchange };
 

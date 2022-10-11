@@ -25,12 +25,25 @@ module.exports = app => {
 
     router.get("/search", transaction.getTransactionBySearch);
 
+    //----find all exchange transaction
+    router.get("/exchange", transaction.findAllExchange);
+
+
+    //----find user exchange transaction
+    router.get("/exchange/search", transaction.findUserExchange);
+
 
     // host at '/api/transaction'
     app.use('/api/transaction', router);
 };
 
+//findAllExchange
 
+    // // Retrieve all tasks Approved
+    // router.get("/approved", tasks.findAllApproved);
+
+    // // Retrieve user tasks Approved
+    // router.get("/approved/search", tasks.findUserApproved);
 
 
 

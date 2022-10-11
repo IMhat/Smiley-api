@@ -10,7 +10,7 @@ const transactionSchema = new mongoose.Schema(
     },
     purpose:{
       type: String,
-      enum : ['deposit', 'transfer', 'reversal', 'withdrawal'],
+      enum : ['deposit', 'transfer', 'reversal', 'withdrawal', 'exchange'],
       required: true
     },
     amount: {
